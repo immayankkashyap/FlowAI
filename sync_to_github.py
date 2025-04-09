@@ -2,13 +2,19 @@ import os
 import time
 import shutil
 import requests
+import base64
+from dotenv import load_dotenv
+
+# === Load .env file ===
+load_dotenv()
 
 # === CONFIGURATION ===
-GITHUB_TOKEN = "your_token_here"
-GITHUB_USERNAME = "your_github_username"
-REPO_NAME = "your_repo_name"  # e.g. flowai-notes
-NOTES_DIR = "notes"
-SYNCED_DIR = "synced"
+GITHUB_TOKEN = os.getenv("GITHUB_TOKEN")
+GITHUB_USERNAME = "immayankkashyap"
+REPO_NAME = "FlowAI"
+NOTES_DIR = "flowai-notes"
+SYNCED_DIR = "synced-notes"
+
 
 def upload_to_github(file_path, file_name):
     with open(file_path, "r", encoding="utf-8") as file:
@@ -22,7 +28,7 @@ def upload_to_github(file_path, file_name):
 
     data = {
         "message": f"Add note {file_name}",
-        "content": content.encode("utf-8").decode("utf-8").encode("base64").decode(),
+        "content": base64.b64encode(content.encode("utf-8")).decode("utf-8"),
         "branch": "main"
     }
 
