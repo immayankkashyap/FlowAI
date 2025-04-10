@@ -1,3 +1,0 @@
-# dummy note
-## Category: Uncategorized
-
